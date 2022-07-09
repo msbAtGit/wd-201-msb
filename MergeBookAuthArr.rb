@@ -4,6 +4,8 @@ books = ["Design as Art", "Anathem", "Shogun"]
 authors = ["Bruno Munari", "Neal Stephenson", "James Clavell"]
 
 #Printing each book with index and getting corresponding author
-books.each_with_index{|book, i| puts("#{book} was written by #{authors[i]}")}
+
+book_auth = books.map.with_index{|book, i| "#{book} was written by #{authors[i]}"}
+book_auth.each{|str| puts(str)}
 
 
