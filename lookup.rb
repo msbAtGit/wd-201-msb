@@ -18,6 +18,7 @@ domain = get_command_line_argument
 # https://www.rubydoc.info/stdlib/core/IO:readlines
 dns_raw = File.readlines("data/zone")
 
+#Converting all the records into map for easier lookup
 def parse_dns(dns_raw)
   dns_records_map = {}
   dns_raw.each do |dns_rec|
@@ -54,12 +55,11 @@ end
 # Remember to implement them above this line since in Ruby
 # you can invoke a function only after it is defined.
 dns_records = parse_dns(dns_raw)
-puts(dns_records)
+# puts(dns_records) debugging code to check CNAME record
 lookup_chain = [domain]
 lookup_chain = resolve(dns_records, lookup_chain, domain)
-puts("\n\n")
-if (lookup_chain == nil || lookup_chain.length == 0)
-  puts("#{domain} not found in dns lookup")
+if (lookup_chain[1] == "NOT FOUND")
+  puts("Error: record not found for #{domain}")
 else
   puts lookup_chain.join(" => ")
 end
